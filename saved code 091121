@@ -1,0 +1,50 @@
+if(command == commandCode[i]){
+    isInCryptoList = true;
+    const request = require('request');
+
+    //[today,yesterday]
+    var dateString = [app.locals.moment(Date.now()).format('YYYY-MM-DD'),app.locals.moment(Date.now()).subtract(1,"days").format('YYYY/MM/DD')];
+
+    console.log(commandCode[i]);
+    
+    var polyRequest = 'https://api.polygon.io/v1/open-close/crypto/'+commandCode[i].toUpperCase()+'/USD/'+dateString[0]+'?adjusted=false&apiKey='+tokens.polygonToken;
+    var polyRequestYesterday = 'https://api.polygon.io/v2/aggs/ticker/X:'+commandCode[i].toUpperCase()+'USD/prev?adjusted=true&apiKey='+tokens.polygonToken;
+    console.log(polyRequest);
+
+    var todayPrice = 0;
+    var yesterdayPrice = 0;
+
+    request(polyRequest, { json: true }, (err, res, body) => {
+        if (err) { return console.log(err); }
+        console.log(body.closingTrades);
+
+        todayPrice = body.closingTrades[0].p;
+
+        request(polyRequestYesterday, { json: true }, (err, res, body) => {
+            if (err) { return console.log(err); }
+            console.log('----------------------------------');
+            console.log(body.results[0].c);
+            console.log('----------------------------------');
+
+            yesterdayPrice = body.results[0].c;
+
+            //% increase = Increase ÷ Original Number × 100.
+            var increase = yesterdayPrice - todayPrice;
+            var calculation = (increase/yesterdayPrice)*100;
+            calculation = Math.round(calculation * 100) / 100
+
+            if(calculation > 0){
+                message.channel.send("📉 "+commandCode[i].toUpperCase()+": $"+ todayPrice +" | "+calculation.toString()+"%");
+            }
+            else{
+                calculation = calculation *-1;
+                message.channel.send("📈 "+commandCode[i].toUpperCase()+": $"+ todayPrice +" | "+calculation.toString()+"%");
+            }
+            
+
+        });
+
+    });
+
+}
+

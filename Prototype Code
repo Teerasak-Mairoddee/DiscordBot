@@ -1,0 +1,151 @@
+if(command == 'yo'){
+    message.channel.send('Yo wys G.');
+}
+
+if(command == 'wys'){
+    message.channel.send('wys');
+}
+if(command == 'test'){
+    const request = require('request');
+
+    request('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY', { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+    console.log(body.url);
+    console.log(body.explanation);
+    message.channel.send(body.explanation);
+    });
+}
+if(command == 'gasadvice'){
+    message.channel.send('Pay me for dat one blud.');
+
+    //const request = require('request');
+
+    //var dateString = app.locals.moment(Date.now()).format('YYYY/MM/DD');
+    //var dateYesterday = app.locals.moment(Date.now()).subtract(30,"days").format('YYYY/MM/DD');
+    //console.log(dateString);
+    //message.channel.send(dateString);
+    //var gasReq = 'https://api.etherscan.io/api?module=stats&action=dailyavggasprice&startdate='+dateYesterday+'&enddate='+dateString+'&sort=asc&apikey='+etherScanToken;
+    //console.log(gasReq);
+    //message.channel.send(gasReq);
+
+    //request(gasReq, { json: true }, (err, res, body) => {
+    //if (err) { return console.log(err); }
+        //console.log(body);
+    //});
+}
+if(command == 'gas'){
+    const request = require('request');
+
+
+    var gasReq = 'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey='+localEtherScanToken;
+    console.log(gasReq);
+    //message.channel.send(gasReq);
+
+    request(gasReq, { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+        console.log(body.result.SafeGasPrice);
+        message.channel.send("🔒 Safe Gas Price: "+body.result.SafeGasPrice+" gwei");
+        message.channel.send("✅ Proposed Gas Price: "+body.result.ProposeGasPrice+" gwei");
+        message.channel.send("⚡️ Fast Gas Price: "+body.result.FastGasPrice+" gwei");
+        message.channel.send("📈 Suggested Base Fee: "+body.result.suggestBaseFee+" gwei");
+    });
+}
+if(command == "mana"){
+    const request = require('request');
+
+    var dateString = app.locals.moment(Date.now()).format('YYYY-MM-DD');
+    var dateYesterday = app.locals.moment(Date.now()).subtract(1,"days").format('YYYY/MM/DD');
+    var btcReq = 'https://api.polygon.io/v1/open-close/crypto/MANA/USD/'+dateString+'?adjusted=false&apiKey='+localPolygonToken;
+    console.log(btcReq);
+    //message.channel.send(gasReq);
+
+    request(btcReq, { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+        console.log(body.closingTrades);
+        message.channel.send("📈 MANA: $" + body.closingTrades[0].p.toString());
+    });
+}
+if(command == "eth"){
+    const request = require('request');
+
+    var dateString = app.locals.moment(Date.now()).format('YYYY-MM-DD');
+    var btcReq = 'https://api.polygon.io/v1/open-close/crypto/ETH/USD/'+dateString+'?adjusted=false&apiKey=fVhcfgTm8mBGt9IcnNR5kb2d3kz5pxxh';
+    console.log(btcReq);
+    //message.channel.send(gasReq);
+
+    request(btcReq, { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+        console.log(body.closingTrades);
+        message.channel.send("💎 ETH: $" + body.closingTrades[0].p.toString());
+    });
+}
+if(command == "sc"){
+    const request = require('request');
+
+    var dateString = app.locals.moment(Date.now()).format('YYYY-MM-DD');
+    var btcReq = 'https://api.polygon.io/v1/open-close/crypto/SC/USD/'+dateString+'?adjusted=false&apiKey=fVhcfgTm8mBGt9IcnNR5kb2d3kz5pxxh';
+    console.log(btcReq);
+    //message.channel.send(gasReq);
+
+    request(btcReq, { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+        console.log(body.closingTrades);
+        message.channel.send("📈 SC: $" + body.closingTrades[0].p.toString());
+    });
+}
+if(command == "ada"){
+    const request = require('request');
+
+    var dateString = app.locals.moment(Date.now()).format('YYYY-MM-DD');
+    var btcReq = 'https://api.polygon.io/v1/open-close/crypto/ADA/USD/'+dateString+'?adjusted=false&apiKey=fVhcfgTm8mBGt9IcnNR5kb2d3kz5pxxh';
+    console.log(btcReq);
+    //message.channel.send(gasReq);
+
+    request(btcReq, { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+        console.log(body.closingTrades);
+        message.channel.send("📈 ADA: $" + body.closingTrades[0].p.toString());
+    });
+}
+if(command == "dot"){
+    const request = require('request');
+
+    var dateString = app.locals.moment(Date.now()).format('YYYY-MM-DD');
+    var btcReq = 'https://api.polygon.io/v1/open-close/crypto/DOT/USD/'+dateString+'?adjusted=false&apiKey=fVhcfgTm8mBGt9IcnNR5kb2d3kz5pxxh';
+    console.log(btcReq);
+    //message.channel.send(gasReq);
+
+    request(btcReq, { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+        console.log(body.closingTrades);
+        message.channel.send("📈 DOT: $" + body.closingTrades[0].p.toString());
+    });
+}
+if(command == "xrp"){
+    const request = require('request');
+
+    var dateString = app.locals.moment(Date.now()).format('YYYY-MM-DD');
+    var btcReq = 'https://api.polygon.io/v1/open-close/crypto/XRP/USD/'+dateString+'?adjusted=false&apiKey=fVhcfgTm8mBGt9IcnNR5kb2d3kz5pxxh';
+    console.log(btcReq);
+    //message.channel.send(gasReq);
+
+    request(btcReq, { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+        console.log(body.closingTrades);
+        message.channel.send("📈 XRP: $" + body.closingTrades[0].p.toString());
+    });
+}
+if(command == "btc"){
+    const request = require('request');
+
+    var dateString = app.locals.moment(Date.now()).format('YYYY-MM-DD');
+    var btcReq = 'https://api.polygon.io/v1/open-close/crypto/BTC/USD/'+dateString+'?adjusted=false&apiKey=fVhcfgTm8mBGt9IcnNR5kb2d3kz5pxxh';
+    console.log(btcReq);
+    //message.channel.send(gasReq);
+
+    request(btcReq, { json: true }, (err, res, body) => {
+        if (err) { return console.log(err); }
+        console.log(body.closingTrades);
+        message.channel.send("👑 BTC: $" + body.closingTrades[0].p.toString());
+    });
+}
