@@ -4,7 +4,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const prefix = '!';
 
 var http = require('http');
-//const {tokens} = require('./config');
+///const {tokens} = require('./config');
 
 express = require('express');
 app = express();
