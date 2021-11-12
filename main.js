@@ -4,7 +4,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const prefix = '!';
 
 var http = require('http');
-const {tokens} = require('./config');
+//const {tokens} = require('./config');
 
 express = require('express');
 app = express();
@@ -20,7 +20,7 @@ client.once('ready',() => {
     //get spreadsheet data
     const request = require('request');
 
-    googleReq = "https://sheets.googleapis.com/v4/spreadsheets/1tTkxnJ43MZcK1arVEr3napdkKP3dhEQhHqeYGd4t_88?includeGridData=true&key="+tokens.googleToken;
+    googleReq = "https://sheets.googleapis.com/v4/spreadsheets/1tTkxnJ43MZcK1arVEr3napdkKP3dhEQhHqeYGd4t_88?includeGridData=true&key="+process.env.GOOGLE_TOKEN;
     request(googleReq, { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
         //message.channel.send(commandCodeFull[i]+' Sent To Terminal');
@@ -126,7 +126,7 @@ client.on('messageCreate', (message) =>{
             const request = require('request');
 
 
-            var gasReq = 'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey='+tokens.etherScanToken;
+            var gasReq = 'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey='+process.env.ETHERSCAN_TOKEN;
         
             request(gasReq, { json: true }, (err, res, body) => {
             if (err) { return console.log(err); }
@@ -140,7 +140,7 @@ client.on('messageCreate', (message) =>{
 
 })
 
-client.login(tokens.discordToken);
+client.login(process.env.DJS_TOKEN);
 
 
 
